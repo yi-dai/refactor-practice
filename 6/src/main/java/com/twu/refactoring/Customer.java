@@ -8,6 +8,7 @@ public class Customer {
 	private String name;
 	private ArrayList<Rental> rentalList = new ArrayList<Rental>();
 
+
 	public Customer(String name) {
 		this.name = name;
 	}
@@ -29,42 +30,58 @@ public class Customer {
 			double thisAmount = 0;
 			Rental each = rentals.next();
 
-			// determine amounts for each line
-			switch (each.getMovie().getPriceCode()) {
-			case Movie.REGULAR:
-				thisAmount += 2;
-				if (each.getDaysRented() > 2)
-					thisAmount += (each.getDaysRented() - 2) * 1.5;
-				break;
-			case Movie.NEW_RELEASE:
-				thisAmount += each.getDaysRented() * 3;
-				break;
-			case Movie.CHILDRENS:
-				thisAmount += 1.5;
-				if (each.getDaysRented() > 3)
-					thisAmount += (each.getDaysRented() - 3) * 1.5;
-				break;
-
+			for(enumMovie e : enumMovie.values()){
+				String temp = e.toString();
+				int undefinedMovie = 100;
+				int tempCode = undefinedMovie;
+				if (temp.charAt(0) == 'R') tempCode = 0;
+				if (temp.charAt(0) == 'N') tempCode = 1;
+				if (temp.charAt(0) == 'C') tempCode = 2;
+				if (tempCode == each.getMovie().getPriceCode()){
+					thisAmount += e.getBasicCharge() + (each.getDaysRented() - e.getFreeDay()) * e.getRate();
+				}
 			}
 
-			// add frequent renter points
 			frequentRenterPoints++;
 			// add bonus for a two day new release rental
 			if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE)
 					&& each.getDaysRented() > 1)
 				frequentRenterPoints++;
 
-			// show figures for this rental
+
 			result += "\t" + each.getMovie().getTitle() + "\t"
 					+ String.valueOf(thisAmount) + "\n";
 			totalAmount += thisAmount;
 
 		}
-		// add footer lines
+
 		result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
 		result += "You earned " + String.valueOf(frequentRenterPoints)
 				+ " frequent renter points";
 		return result;
 	}
 
+}
+
+enum enumMovie{
+	R(2, 2, 1.5), N(0,0,3), C(1.5, 3, 1.5);
+	private double basicCharge;
+	private int freeDay;
+	private double rate;
+	enumMovie(double basicCharge, int freeDay,double rate){
+		this.basicCharge = basicCharge;
+		this.freeDay = freeDay;
+		this.rate = rate;
+	}
+	public double getBasicCharge(){
+		return basicCharge;
+	}
+
+	public int getFreeDay() {
+		return freeDay;
+	}
+
+	public double getRate() {
+		return rate;
+	}
 }

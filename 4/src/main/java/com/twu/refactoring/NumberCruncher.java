@@ -2,40 +2,35 @@ package com.twu.refactoring;
 
 public class NumberCruncher {
     private final int[] numbers;
+    int countEven = 0;
+    int countOdd = 0;
+    int countPositive = 0;
+    int countNegative = 0;
 
     public NumberCruncher(int... numbers) {
         this.numbers = numbers;
+        for (int number : numbers){
+            if(number % 2 == 0) countEven++;
+            if(number % 2 == 1) countOdd++;
+            if(number >= 0) countPositive++;
+            if(number < 0) countNegative++;
+
+        }
     }
 
     public int countEven() {
-        int count = 0;
-        for (int number : numbers) {
-            if (number % 2 == 0) count++;
-        }
-        return count;
+        return countEven;
     }
 
     public int countOdd() {
-        int count = 0;
-        for (int number : numbers) {
-            if (number % 2 == 1) count++;
-        }
-        return count;
+        return countOdd;
     }
 
     public int countPositive() {
-        int count = 0;
-        for (int number : numbers) {
-            if (number >= 0) count++;
-        }
-        return count;
+        return countPositive;
     }
 
     public int countNegative() {
-        int count = 0;
-        for (int number : numbers) {
-            if (number < 0) count++;
-        }
-        return count;
+        return countNegative;
     }
 }

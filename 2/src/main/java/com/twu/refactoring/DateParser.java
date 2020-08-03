@@ -74,7 +74,6 @@ public class DateParser {
     public int getMonth(String monthString){
         int month;
         try {
-            //String monthString = dateAndTimeString.substring(5, 7);
             month = Integer.parseInt(monthString);
         } catch (StringIndexOutOfBoundsException e) {
             throw new IllegalArgumentException("Month string is less than 2 characters");
@@ -90,7 +89,6 @@ public class DateParser {
     public int getDate(String dateString){
         int date;
         try {
-            //String dateString = dateAndTimeString.substring(8, 10);
             date = Integer.parseInt(dateString);
         } catch (StringIndexOutOfBoundsException e) {
             throw new IllegalArgumentException("Date string is less than 2 characters");
@@ -105,7 +103,6 @@ public class DateParser {
     public int getHour(String hourString){
         int hour;
         try {
-            //String hourString = dateAndTimeString.substring(11, 13);
             hour = Integer.parseInt(hourString);
         } catch (StringIndexOutOfBoundsException e) {
             throw new IllegalArgumentException("Hour string is less than 2 characters");
@@ -120,7 +117,6 @@ public class DateParser {
     public int getMinute(String minuteString){
         int minute;
         try {
-            //String minuteString = dateAndTimeString.substring(14, 16);
             minute = Integer.parseInt(minuteString);
         } catch (StringIndexOutOfBoundsException e) {
             throw new IllegalArgumentException("Minute string is less than 2 characters");

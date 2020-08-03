@@ -8,33 +8,26 @@ public class Direction {
     }
 
     public Direction turnRight() {
-        switch (direction) {
-            case 'N':
-                return new Direction('E');
-            case 'S':
-                return new Direction('W');
-            case 'E':
-                return new Direction('N');
-            case 'W':
-                return new Direction('S');
-            default:
-                throw new IllegalArgumentException();
+        for(turnRightDirection e : turnRightDirection.values()){
+            String temp = e.toString();
+            if (direction == temp.charAt(0)){
+                char finalDirection = e.getDirection();
+                return new Direction(finalDirection);
+            }
         }
+        throw new IllegalArgumentException();
     }
 
     public Direction turnLeft() {
-        switch (direction) {
-            case 'N':
-                return new Direction('W');
-            case 'S':
-                return new Direction('E');
-            case 'E':
-                return new Direction('N');
-            case 'W':
-                return new Direction('S');
-            default:
-                throw new IllegalArgumentException();
+
+        for(turnLeftDirection e : turnLeftDirection.values()){
+            String temp = e.toString();
+            if (direction == temp.charAt(0)){
+                char finalDirection = e.getDirection();
+                return new Direction(finalDirection);
+            }
         }
+        throw new IllegalArgumentException();
     }
 
     @Override
@@ -57,5 +50,27 @@ public class Direction {
     @Override
     public String toString() {
         return "Direction{direction=" + direction + '}';
+    }
+}
+
+enum turnRightDirection {
+    N('E'), S('W'), E('N'), W('S');
+    private char resultDirection;
+    private turnRightDirection(char resultDirection){
+        this.resultDirection = resultDirection;
+    }
+    public char getDirection(){
+        return resultDirection;
+    }
+}
+
+enum turnLeftDirection {
+    N('W'), S('E'), E('N'), W('S');
+    private char resultDirection;
+    private turnLeftDirection(char resultDirection){
+        this.resultDirection = resultDirection;
+    }
+    public char getDirection(){
+        return resultDirection;
     }
 }
